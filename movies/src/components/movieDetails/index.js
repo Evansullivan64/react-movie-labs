@@ -7,7 +7,9 @@ import StarRate from "@mui/icons-material/StarRate";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
-import React, {useState, useEffect}  from "react";
+import React, { useState } from "react";
+import Drawer from "@mui/material/Drawer";
+import MovieReviews from "../movieReviews"
 import { useParams } from 'react-router-dom';
 
 
@@ -21,8 +23,8 @@ const root = {
 };
 const chip = { margin: 0.5 };
 
-const MovieDetails = ( props) => {
-  const movie = props.movie
+const MovieDetails = ({ movie }) => {  // Don't miss this!
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
     <>
@@ -77,12 +79,19 @@ const MovieDetails = ( props) => {
       <Fab
         color="secondary"
         variant="extended"
+        onClick={() =>setDrawerOpen(true)}
         sx={{
-            position: "fixed",
-            bottom: 2,
-            right: 2
+          position: 'fixed',
+          bottom: '1em',
+          right: '1em'
         }}
       >
+        <NavigationIcon />
+        Reviews
+      </Fab>
+      <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+        <MovieReviews movie={movie} />
+      </Drawer>
         <NavigationIcon />
         Reviews
       </Fab>
